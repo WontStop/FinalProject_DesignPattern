@@ -3,11 +3,14 @@
 #include"Observer.hpp"
 #include"Composite.hpp"
 
+
 using namespace std;
 
 void main()
 {
 	
+//this is the code for Redo and Undo
+//composite and observer test code
 	string a[10] = { "O1","O2","O3","O4","O5","O6","O7","O8","O9","O10" };
 	string container[10] = { "C1","C2" ,"C3" ,"C4" ,"C5" ,"C6" ,"C7" ,"C8" ,"C9" ,"C10" };
 	Composite* comp;
