@@ -108,6 +108,27 @@ public:
 	{
 		return isObject;
 	}
+
+	Container* searchContainer(string _name)
+	{
+		if (this->getName() == _name)
+			return this;
+		for (vector<Composite*>::iterator it = vec.begin();it != vec.end();it++)
+		{
+			if (!(*it)->getObject())
+			{
+				if ((*it)->getName() == _name)
+					return (Container*)(*it);
+				else
+				{
+					Container* result = ((Container*)(*it))->searchContainer(_name);
+					if (result != nullptr)
+						return result;
+				}
+			}
+		}
+		return nullptr;
+	}
 private:
 	string name;
 	int size;
