@@ -81,5 +81,5 @@ void printOrder()
 	cout << "5. Print the Observer List" << endl;
 	cout << "0. exit undo/redo Pattern" << endl;
 	cout << "Please input the order..." << endl;
-	cout << "-------------Undo/Redo Pattern--------------" << endl;
+	cout << "-------------Observer Pattern--------------" << endl;
 }
