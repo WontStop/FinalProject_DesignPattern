@@ -22,8 +22,12 @@ void main()
 		{
 		case '1':
 		{
-			cout << "Please input action name:" << endl;
 			cin >> newname;
+			while (newname == "")
+			{
+				cout << "Please input action name:" << endl;
+				cin >> newname;
+			}
 			edit = new UndoableEdit(newname);
 			manager->addEdit(edit);
 			break;

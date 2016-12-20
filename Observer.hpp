@@ -21,7 +21,7 @@ private:
 	bool changed = false;
 };
 
-Observer::Observer(string _name = "Tom",bool _changed = false)
+Observer::Observer(string _name = "Observer",bool _changed = false)
 {
 	name = _name;
 	changed = _changed;
@@ -36,8 +36,8 @@ bool Observer::getChanged()
 }
 void Observer::update()
 {
-	cout << name << ":" 
-		<< "Message is received!" 
+	cout << name << ": " 
+		<< "Message has been received!" 
 		<< '\n';
 }
 bool Observer::operator==(Observer& _obs)
@@ -54,16 +54,22 @@ private:
 	vector<Observer> vec;
 	bool changed;
 public:
-	Observable(bool);
+	Observable(string,bool);
 	~Observable() {}
 	void addObserver(Observer _obs);
 	void deleteObserver(Observer _obs);
 	void deleteObserver(string& _name);
 	void notifyObservers();
 	void change();
+	void setChanged();
+	void clearChanged();
+	bool hasChanged();
+	int  countObserver();
+
+	void printObserverList();
 };
 
-Observable::Observable(bool _flag = false)
+Observable::Observable(string name = "Observerable",bool _flag = false)
 {
 	changed = _flag;
 }
@@ -119,6 +125,34 @@ void Observable::change()
 	changed = false;
 }
 
+void Observable::setChanged()
+{
+	changed = true;
+	notifyObservers();
+	changed = false;
+}
+void Observable::clearChanged()
+{
+	changed = false;
+}
+bool Observable::hasChanged()
+{
+	return changed;
+}
+int Observable::countObserver()
+{
+	int resultNumber = 0;
+	if (vec.empty())
+		return resultNumber;
+	else
+		return vec.size();
+}
+void Observable::printObserverList() {
+	for (vector<Observer>::iterator it = vec.begin();it != vec.end();it++)
+	{
+		cout << (*it).getName() << endl;
+	}
+}
 ////////////////////////////////////////////////////////////////////////
 class AnimalFather
 {
@@ -164,7 +198,6 @@ public:
 private:
 	string classname;
 };
-
 
 class Cat :public Animal
 {
