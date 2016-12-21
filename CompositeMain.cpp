@@ -51,7 +51,7 @@ void main()
 		case '3':
 		{
 			cout << "***********Composite List (start)***********" << endl;
-			container->printList(container->getName());
+			container->printList();
 			cout << "***********Composite List (over)************" << endl;
 			break;
 		}
@@ -64,11 +64,11 @@ void main()
 				cout << "please input the container name:" << endl;
 				cin >> name;
 			}
-			Container* result;
+			Composite* result;
 			result = root->searchContainer(name);
 			if (result != nullptr)
 			{
-				container = result;
+				container = (Container*)result;
 				cout << "The current container is " << container->getName() << endl;
 			}
 			else

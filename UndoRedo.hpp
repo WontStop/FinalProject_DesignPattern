@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+
 #define UndoableEdit_MyUndoableEdit 1;
 #define UndoableEdit_CompundEdit 2
 using namespace std;
@@ -13,7 +14,7 @@ public:
 	}
 	~UndoableEdit()
 	{
-		//delete[] vector;
+
 	}
 	virtual bool canUndo()
 	{
@@ -53,10 +54,10 @@ public:
 		isAlive = false;
 	}
 	virtual void addEdit(UndoableEdit* _edit) {
-
+		// to be implemented by its subclass
 	}
 	virtual void replaceEdit(UndoableEdit* _edit) {
-
+		// to be implemented by its subclass
 	}
 	virtual string getPresentationName()
 	{
@@ -89,7 +90,9 @@ public:
 	~MyUndoableEdit();
 };
 // Implentation of MyUndoableEdit
-MyUndoableEdit::MyUndoableEdit(string _name) :UndoableEdit(_name) {}
+MyUndoableEdit::MyUndoableEdit(string _name) :UndoableEdit(_name) {
+	type = UndoableEdit_MyUndoableEdit;
+}
 MyUndoableEdit::~MyUndoableEdit() {}
 
 
