@@ -9,7 +9,7 @@ using namespace std;
 class Composite
 {
 public:
-	Composite(string& _name,bool _isObject):name(_name) {}
+	Composite(string& _name):name(_name) {}
 	~Composite() {}
 	virtual string getName() 
 	{ 
@@ -25,22 +25,19 @@ public:
 	virtual void add(Composite* _comp) 
 	{
 	}
-	virtual bool getObject()
-	{
-		return isObject;
+	virtual Composite* searchContainer(string _name) {
+		return nullptr;
 	}
 private:
 	string name;
 	int size;
-	bool isObject;
 };
 
 class Object:public Composite
 {
 public:
-	Object(string& _name) :Composite(_name,true),name(_name) { 
+	Object(string& _name) :Composite(_name),name(_name) { 
 		size = 1; 
-		isObject = true;
 	}
 	~Object() {}
 	string getName() { 
@@ -50,31 +47,36 @@ public:
 		return size; 
 	}
 	void printList(string _front) {
-		cout << "Error:" << "Object can't print the list" << endl;
-		return;
+		///////////////////////////////////////////////////////////
+		//At the final presentation, Teacher Zongjian He said 
+		//Object and Container should have the same interface
+		//So I decide to change the current mode...
+
+		//The origin version
+		//cout << "Error:" << "Object can't print the list" << endl;
+		//return;
+
+		//Current Version
+		cout << _front << "/" << getName() << endl;
 	}
 	void add(Composite*_comp)
 	{
 		cout << "Error:" << "Object can't contain other composite! " << endl;
 		return;
 	}
-	bool getObject()
-	{
-		return isObject;
+	Composite* searchContainer(string _name) {
+		return nullptr;
 	}
-
 private:
 	string name;
 	int size;
-	bool isObject;
 };
 
 class Container :public Composite
 {
 public:
-	Container(string& _name) :Composite(_name,false), name(_name) {
+	Container(string& _name) :Composite(_name), name(_name) {
 	size = 0;
-	isObject = false;
 	}
 	~Container() {}
 	string getName() 
@@ -85,46 +87,37 @@ public:
 	{
 		return size;
 	}
-	void printList(string _front = "")
-	{
-		for (vector<Composite*>::iterator it = vec.begin();it != vec.end();it++)
-		{
-			string name = (*it)->getName();
-			cout << _front
-				<< "/" << name << endl;
-			string _nextfront = _front + "/" + name;
-			if (!(*it)->getObject())
-			{
-				(*it)->printList(_nextfront);
-			}
-		}
-	}
 	void add(Composite* _comp)
 	{
 		vec.push_back(_comp);
 		size++;
 	}
-	bool getObject()
+	void printList(string _front = "")
 	{
-		return isObject;
+		cout << _front << "/" << getName() << endl;
+		for (vector<Composite*>::iterator it = vec.begin();it != vec.end();it++)
+		{
+			string _nextfront = _front + "/" + name;
+			(*it)->printList(_nextfront);
+			//if (!(*it)->getObject())
+			//{
+			//	(*it)->printList(_nextfront);
+			//}
+		}
 	}
-
-	Container* searchContainer(string _name)
+	Composite* searchContainer(string _name)
 	{
 		if (this->getName() == _name)
 			return this;
 		for (vector<Composite*>::iterator it = vec.begin();it != vec.end();it++)
 		{
-			if (!(*it)->getObject())
+			if ((*it)->getName() == _name)
+				return (*it);
+			else
 			{
-				if ((*it)->getName() == _name)
-					return (Container*)(*it);
-				else
-				{
-					Container* result = ((Container*)(*it))->searchContainer(_name);
-					if (result != nullptr)
-						return result;
-				}
+				Composite* result = (*it)->searchContainer(_name);
+				if (result != nullptr)
+					return result;
 			}
 		}
 		return nullptr;
@@ -132,6 +125,5 @@ public:
 private:
 	string name;
 	int size;
-	bool isObject;
 	vector<Composite*> vec;
 };
