@@ -79,7 +79,7 @@ void printOrder()
 	cout << "3. Delete Old Observer" << endl;
 	cout << "4. Change the Observable" << endl;
 	cout << "5. Print the Observer List" << endl;
-	cout << "0. exit undo/redo Pattern" << endl;
+	cout << "0. exit Observer Pattern" << endl;
 	cout << "Please input the order..." << endl;
 	cout << "-------------Observer Pattern--------------" << endl;
 }

@@ -2,7 +2,7 @@
 #include<string>
 #include"Observer.hpp"
 #include"Composite.hpp"
-#include"RedoUndo.hpp"
+#include"UndoRedo.hpp"
 
 using namespace std;
 
@@ -89,7 +89,7 @@ void printOrder()
 	cout << "2. add a new Container" << endl;
 	cout << "3. print the Objects and Container" << endl;
 	cout << "4. change to the specific Container" << endl;
-	cout << "0. exit undo/redo Pattern" << endl;
+	cout << "0. exit Composite Pattern" << endl;
 	cout << "Please input the order..." << endl;
 	cout << "-------------Composite Pattern--------------" << endl;
 }
